@@ -4,15 +4,14 @@
 每个块处理间保持流水结构：
 大致结构如下，
 【load_weight】
-【  load_feature  】【      compute      】【save_result】
+【load_feature】【compute】【save_result】
                              【load_weight】
-                             【  load_feature  】【      compute      】【save_result】
-                                                          【load_weight】
-                                                          【  load_feature  】【      compute      】【save_result】
-注：load部分互不影响所以可以并行。其中图例所示长度表示为该单元大致所需时间关系。
+                             【load_feature】【compute】【save_result】
+                                                      
+注：load部分互不影响所以可以并行。
 
 非流水结构，
-【load_weight】【  load_feature  】【      compute      】【save_result】【load_weight】【  load_feature  】【      compute      】【save_result】【load_weight】 【  load_feature  】【      compute      】【save_result】
+【load_weight】【load_feature】【compute】【save_result】【load_weight】【load_feature】【  compute】【save_result】
 
 非流水时间=3*(T(【load_weight】)+T(【  load_feature  】)+T(【      compute      】)+T(【save_result】))
 流水时间=T(【  load_feature  】)+3*T(【      compute      】)+T(【save_result】)
